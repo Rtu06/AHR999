@@ -16,36 +16,36 @@ $$
 
 Trong đó:
 
-1. **$\text{Cost}_{200d}$ (Chi phí trung bình nhân 200 ngày)**:
+### 1.1. Chi phí trung bình nhân 200 ngày ($\text{Cost}_{200d}$)
 
-   $$
-   \text{Cost}_{200d} = \exp\left( \frac{1}{200} \sum_{i=0}^{199} \ln(\text{Close}_{t-i}) \right)
-   $$
+Đo lường chi phí vốn trung bình của các nhà đầu tư trong 200 ngày gần nhất (sử dụng Geometric Mean để giảm thiểu độ lệch bởi các đột biến giá). Trong mã nguồn tương ứng cột `cost_200d`:
 
-   Đo lường chi phí vốn trung bình của các nhà đầu tư trong 200 ngày gần nhất (sử dụng Geometric Mean để giảm thiểu độ lệch bởi các đột biến giá). Trong mã nguồn tương ứng cột `cost_200d`.
+$$
+\text{Cost}_{200d} = \exp\left( \frac{1}{200} \sum_{i=0}^{199} \ln(\text{Close}_{t-i}) \right)
+$$
 
-2. **$\text{Days Since Genesis}$ (Số ngày từ khối Genesis)**:
+### 1.2. Số ngày từ khối Genesis ($\text{Days Since Genesis}$)
 
-   Số ngày tính từ khối khởi nguyên Genesis block của Bitcoin (`2009-01-03`) đến ngày hiện tại của từng dòng dữ liệu:
+Số ngày tính từ khối khởi nguyên Genesis block của Bitcoin (`2009-01-03`) đến ngày hiện tại của từng dòng dữ liệu:
 
-   $$
-   \text{days} = \text{date} - \text{2009-01-03}
-   $$
+$$
+\text{days} = \text{date} - \text{2009-01-03}
+$$
 
-3. **$\text{ExpGrowth}$ (Đường tăng trưởng hàm mũ theo tuổi Bitcoin)**:
+### 1.3. Đường tăng trưởng hàm mũ theo tuổi Bitcoin ($\text{ExpGrowth}$)
 
-   Mô hình hồi quy hàm mũ phản ánh giá trị nội tại dài hạn của mạng lưới Bitcoin theo thời gian:
+Mô hình hồi quy hàm mũ phản ánh giá trị nội tại dài hạn của mạng lưới Bitcoin theo thời gian:
 
-   $$
-   \text{ExpGrowth} = 10^{5.84 \cdot \log_{10}(\text{days}) - 17.01}
-   $$
+$$
+\text{ExpGrowth} = 10^{5.84 \cdot \log_{10}(\text{days}) - 17.01}
+$$
 
-   *(Các tham số `5.84` và `17.01` có thể cấu hình linh hoạt trong `config.py`, trong mã nguồn tương ứng cột `exp_growth`)*.
+*(Các tham số `5.84` và `17.01` có thể cấu hình linh hoạt trong `config.py`, trong mã nguồn tương ứng cột `exp_growth`)*.
 
-4. **Phân loại vùng AHR999 (`ahr_zone`)**:
-   - **`opportunity`** ($\text{AHR999} < 0.45$): Vùng đáy định giá siêu rẻ, cơ hội tích lũy mạnh nhất chu kỳ.
-   - **`dca`** ($0.45 \le \text{AHR999} \le 1.20$): Vùng giá hợp lý, thích hợp duy trì chiến lược tích lũy định kỳ (Dollar-Cost Averaging).
-   - **`risk`** ($\text{AHR999} > 1.20$): Vùng định giá quá cao / quá nóng, tiềm ẩn rủi ro tạo đỉnh chu kỳ.
+### 1.4. Phân loại vùng AHR999 (`ahr_zone`)
+- **`opportunity`** ($\text{AHR999} < 0.45$): Vùng đáy định giá siêu rẻ, cơ hội tích lũy mạnh nhất chu kỳ.
+- **`dca`** ($0.45 \le \text{AHR999} \le 1.20$): Vùng giá hợp lý, thích hợp duy trì chiến lược tích lũy định kỳ (Dollar-Cost Averaging).
+- **`risk`** ($\text{AHR999} > 1.20$): Vùng định giá quá cao / quá nóng, tiềm ẩn rủi ro tạo đỉnh chu kỳ.
 
 ---
 
@@ -57,8 +57,8 @@ Trong đó:
 | :--- | :--- | :---: | :--- |
 | **Opportunity** ($< 0.45$) | $\text{Close} > \text{SMA}_{20}$ | **100% BTC** | Đáy định giá + Xác nhận đảo chiều hồi phục vượt SMA20 -> Phân bổ tối đa |
 | **Opportunity** ($< 0.45$) | $\text{Close} \le \text{SMA}_{20}$ | **80% BTC** | Vùng đáy nhưng đang đà rơi tự do -> Gom 80%, giữ 20% tiền mặt dự phòng |
-| **DCA** ($0.45 - 1.20$) | $\text{Close} > \text{SMA}_{20} \text{ và } \text{RSI}_{14} \ge 45$ | **75% BTC** | Uptrend lành mạnh trong vùng tích lũy -> Tỷ trọng cao đón sóng |
-| **DCA** ($0.45 - 1.20$) | $\text{Close} > \text{SMA}_{20} \text{ và } \text{RSI}_{14} < 45$ | **50% BTC** | Vùng tích lũy, giá trên SMA20 nhưng động lượng đi ngang -> Tỷ trọng 50% |
+| **DCA** ($0.45 - 1.20$) | $\text{Close} > \text{SMA}_{20}$ và $\text{RSI}_{14} \ge 45$ | **75% BTC** | Uptrend lành mạnh trong vùng tích lũy -> Tỷ trọng cao đón sóng |
+| **DCA** ($0.45 - 1.20$) | $\text{Close} > \text{SMA}_{20}$ và $\text{RSI}_{14} < 45$ | **50% BTC** | Vùng tích lũy, giá trên SMA20 nhưng động lượng đi ngang -> Tỷ trọng 50% |
 | **DCA** ($0.45 - 1.20$) | $\text{Close} \le \text{SMA}_{20}$ | **35% BTC** | Xuất hiện nhịp điều chỉnh ngắn hạn dưới SMA20 -> Hạ tỷ trọng phòng thủ |
 | **Risk** ($1.20 - 2.00$) | $\text{Close} > \text{SMA}_{20}$ | **25% BTC** | Vùng nóng nhưng trend chưa gãy -> Giữ 25% vị thế trailing runner |
 | **Risk** ($1.20 - 2.00$) | $\text{Close} \le \text{SMA}_{20}$ | **10% BTC** | Vùng nóng và gãy trend SMA20 -> Hạ tỷ trọng khẩn cấp còn 10% |
