@@ -55,14 +55,14 @@ $$
 
 | Vùng AHR999 | Điều kiện kỹ thuật | Tỷ trọng mục tiêu (`target_weight`) | Giải thích logic |
 | :--- | :--- | :---: | :--- |
-| **Opportunity** ($< 0.45$) | $\text{Close} > \text{SMA}_{20}$ | **100% BTC** | Đáy định giá + Xác nhận đảo chiều hồi phục vượt SMA20 -> Phân bổ tối đa |
-| **Opportunity** ($< 0.45$) | $\text{Close} \le \text{SMA}_{20}$ | **80% BTC** | Vùng đáy nhưng đang đà rơi tự do -> Gom 80%, giữ 20% tiền mặt dự phòng |
-| **DCA** ($0.45 - 1.20$) | $\text{Close} > \text{SMA}_{20} & \text{RSI}_{14} \ge 45$ | **75% BTC** | Uptrend lành mạnh trong vùng tích lũy -> Tỷ trọng cao đón sóng |
-| **DCA** ($0.45 - 1.20$) | $\text{Close} > \text{SMA}_{20} & \text{RSI}_{14} < 45$ | **50% BTC** | Vùng tích lũy, giá trên SMA20 nhưng động lượng đi ngang -> Tỷ trọng 50% |
-| **DCA** ($0.45 - 1.20$) | $\text{Close} \le \text{SMA}_{20}$ | **35% BTC** | Xuất hiện nhịp điều chỉnh ngắn hạn dưới SMA20 -> Hạ tỷ trọng phòng thủ |
-| **Risk** ($1.20 - 2.00$) | $\text{Close} > \text{SMA}_{20}$ | **25% BTC** | Vùng nóng nhưng trend chưa gãy -> Giữ 25% vị thế trailing runner |
-| **Risk** ($1.20 - 2.00$) | $\text{Close} \le \text{SMA}_{20}$ | **10% BTC** | Vùng nóng và gãy trend SMA20 -> Hạ tỷ trọng khẩn cấp còn 10% |
-| **Extreme Bubble** ($> 2.00$) | Bất kể điều kiện | **0% BTC (100% USDT)** | Bong bóng hưng phấn tột độ -> Chốt lời toàn bộ, bảo toàn vốn |
+| **Opportunity** (< 0.45) | `Close` > `SMA(20)` | **100% BTC** | Đáy định giá + Xác nhận đảo chiều hồi phục vượt SMA20 -> Phân bổ tối đa |
+| **Opportunity** (< 0.45) | `Close` ≤ `SMA(20)` | **80% BTC** | Vùng đáy nhưng đang đà rơi tự do -> Gom 80%, giữ 20% tiền mặt dự phòng |
+| **DCA** (0.45 – 1.20) | `Close` > `SMA(20)` và `RSI(14)` ≥ 45 | **75% BTC** | Uptrend lành mạnh trong vùng tích lũy -> Tỷ trọng cao đón sóng |
+| **DCA** (0.45 – 1.20) | `Close` > `SMA(20)` và `RSI(14)` < 45 | **50% BTC** | Vùng tích lũy, giá trên SMA20 nhưng động lượng đi ngang -> Tỷ trọng 50% |
+| **DCA** (0.45 – 1.20) | `Close` ≤ `SMA(20)` | **35% BTC** | Xuất hiện nhịp điều chỉnh ngắn hạn dưới SMA20 -> Hạ tỷ trọng phòng thủ |
+| **Risk** (1.20 – 2.00) | `Close` > `SMA(20)` | **25% BTC** | Vùng nóng nhưng trend chưa gãy -> Giữ 25% vị thế trailing runner |
+| **Risk** (1.20 – 2.00) | `Close` ≤ `SMA(20)` | **10% BTC** | Vùng nóng và gãy trend SMA20 -> Hạ tỷ trọng khẩn cấp còn 10% |
+| **Extreme Bubble** (> 2.00) | Bất kể điều kiện | **0% BTC (100% USDT)** | Bong bóng hưng phấn tột độ -> Chốt lời toàn bộ, bảo toàn vốn |
 
 ### Cam kết trung thực trong Backtest (No Look-Ahead Bias)
 - Quyết định tỷ trọng (`target_weight`) được tính dựa trên giá đóng cửa phiên ngày $t$.
